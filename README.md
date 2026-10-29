@@ -78,7 +78,7 @@ All scores are on a scale of 10–100. Δ = PsyPARSE − baseline.
 
 ### Judge sensitivity
 
-The paper does not name its judge. We re-scored the same 20 transcripts with three judges using [`evaluation/rejudge.py`](evaluation/rejudge.py):
+The paper does not name its judge. We re-scored the same 20 transcripts with three judges using [`evaluation/rejudge.py`](PsyParse/evaluation/rejudge.py):
 
 | Judge | Baseline | PsyPARSE | Δ | Wins | Score range | Length bias* |
 | :--- | ---: | ---: | ---: | :---: | :---: | :---: |
@@ -88,7 +88,7 @@ The paper does not name its judge. We re-scored the same 20 transcripts with thr
 
 <sub>*Correlation between the baseline's score and the baseline transcript's length. Lower is better.</sub>
 
-Gemma-4-31B was selected because it uses the full score range, has the lowest length bias, separates a weak and a strong transcript best ([`test_judge.py`](test_judge.py): +60.8 vs +48.3), and comes from a different model family than the agents.
+Gemma-4-31B was selected because it uses the full score range, has the lowest length bias, separates a weak and a strong transcript best ([`test_judge.py`](PsyParse/test_judge.py): +60.8 vs +48.3), and comes from a different model family than the agents.
 
 > [!NOTE]
 > The judge was selected using these same transcripts, and N = 10. A confirmation run on unseen scenarios has not been done yet.
@@ -177,7 +177,7 @@ JUDGE_MODEL=gemma4:31b JUDGE_REASONING_EFFORT=none MAX_TOKENS=2048 \
   PYTHONPATH=. python evaluation/rejudge.py results/transcripts --resume
 ```
 
-Platform-specific guides: [Local / Ollama](RUN_LOCALLY.md) · [Kaggle / Colab](RUN_ON_COLAB.md) (used for the reported results) · [Groq API](RUN_ON_GROQ.md)
+Platform-specific guides: [Local / Ollama](PsyParse/RUN_LOCALLY.md) · [Kaggle / Colab](PsyParse/RUN_ON_COLAB.md) (used for the reported results) · [Groq API](PsyParse/RUN_ON_GROQ.md)
 
 > A full scenario needs about 200 LLM calls. Ten scenarios take several hours on 2× T4.
 
@@ -185,7 +185,7 @@ Platform-specific guides: [Local / Ollama](RUN_LOCALLY.md) · [Kaggle / Colab](R
 
 ## Configuration
 
-All settings live in [`config.py`](config.py) and can be overridden with environment variables.
+All settings live in [`config.py`](PsyParse/config.py) and can be overridden with environment variables.
 
 | Variable | Default | Description |
 | :--- | :---: | :--- |

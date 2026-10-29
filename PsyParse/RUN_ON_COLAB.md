@@ -14,7 +14,7 @@ The setup cell detects the platform and GPU memory and picks models that fit. Al
 | `"quick"` | qwen2.5:7b  | qwen2.5:14b                                                                   | `QUICK_TEST=1`: 3 intake + 2 therapy turns, 1 rollout round, 2 branches, 1 judge run (~40 LLM calls/scenario) | finding errors and reading a transcript in minutes. **Numbers are not results**; saved to `results_quick/` |
 | `"full"`  | qwen2.5:14b | qwen2.5:32b if ≥ 28 GB GPU memory (Kaggle T4 x2, A100), otherwise qwen2.5:14b | paper/SOP settings (~150+ LLM calls/scenario)                                                                 | real results in `results/`                                                                                 |
 
-On a single T4 (free Colab) the full-mode judge is only as big as the agents, which makes it weak. Better: set `GROQ_JUDGE_KEY` in cell 1. The judge then runs on Groq's `openai/gpt-oss-120b` (1 call per transcript, so the free tier is enough for ~10 scenarios a day) while the agents stay on the GPU.
+On a single T4 (free Colab) the full-mode judge is only as big as the agents, which makes it weak, so use Kaggle T4 x2 for real results. `GROQ_JUDGE_KEY` only works with a paid Groq tier: the free tier's 8K tokens/minute limit is smaller than one judge call (~16k tokens).
 
 ---
 
@@ -106,7 +106,7 @@ Check the first lines that `run_eval.py` prints:
 
 ## Cell 2: check the judge (a few minutes, both sessions)
 
-The strong transcript must score clearly higher than the weak one (gap > 15). If not, the judge is too weak and the final deltas won't mean much; use the Groq judge option.
+The strong transcript must score clearly higher than the weak one (gap > 15). If not, the judge is too weak and the final deltas won't mean much; use a bigger judge (Kaggle T4 x2).
 
 ```python
 !PYTHONPATH=. python test_judge.py
@@ -119,7 +119,7 @@ assert MODE == "full", "restart the session and run Cell 1 with MODE = 'full' fi
 !QUICK_TEST=0 PYTHONPATH=. python evaluation/grid_search.py
 ```
 
-It prints `best: {'alpha': ..., 'w1': ..., 'w2': ...}`. Write those three numbers into Cells 4 and 5 (no need to edit `config.py`).
+It prints `best: {'alpha': ..., 'w1': ..., 'w2': ...}`. Write those three numbers into Cells 4 and 5 (no need to edit `config.py`). In our runs every setting scored the same, so this cell can be skipped to save time; Cells 4 and 5 then keep 0.5 / 0.5 / 0.5.
 
 ## Cell 4: check run, 1 scenario first (session B only, ~30-40 min)
 
