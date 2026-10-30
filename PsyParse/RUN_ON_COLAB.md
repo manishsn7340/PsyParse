@@ -119,7 +119,7 @@ assert MODE == "full", "restart the session and run Cell 1 with MODE = 'full' fi
 !QUICK_TEST=0 PYTHONPATH=. python evaluation/grid_search.py
 ```
 
-It prints `best: {'alpha': ..., 'w1': ..., 'w2': ...}`. Write those three numbers into Cells 4 and 5 (no need to edit `config.py`). In our runs every setting scored the same, so this cell can be skipped to save time; Cells 4 and 5 then keep 0.5 / 0.5 / 0.5.
+It prints `best: {'alpha': ..., 'w1': ..., 'w2': ...}`. Write those three numbers into Cells 4 and 5 (no need to edit `config.py`). Our grid on 14 tuning scenarios (4 dev + eval scenarios 11-20, `results/grid_search_results.json`) gave 64-71% hit@3 for every setting, at most one scenario apart, and 0.5 / 0.5 / 0.5 is in the best group. The printed `best` (alpha 0.7) only wins the MRR tie-break, which changes the order inside the top-3, not which therapies go to the rollouts. So this cell can be skipped to save time; Cells 4 and 5 keep 0.5 / 0.5 / 0.5.
 
 ## Cell 4: check run, 1 scenario first (session B only, ~30-40 min)
 

@@ -196,7 +196,7 @@ All settings live in [`config.py`](PsyParse/config.py) and can be overridden wit
 | `INTAKE_TURNS`, `THERAPY_TURNS` | `5`, `5` | Session length. The reported run uses `THERAPY_TURNS=10`. |
 | `ROLLOUT_ROUNDS`, `PRUNING_BRANCHES` | `3`, `4` | Paper values for Stages 3a and 3b. |
 | `RAG_TOP_K1`, `RAG_TOP_K2` | `10`, `3` | Cases kept by retrieval and therapies kept after scoring. |
-| `ALPHA`, `W1`, `W2` | `0.5` | Weights of Eq. 1 and Eq. 2. |
+| `ALPHA`, `W1`, `W2` | `0.5` | Weights of Eq. 1 and Eq. 2, tuned by grid search (see below). |
 | `WE_M`, `WT_M`, `TAU_RESP` | `0.5`, `0.5`, `2.5` | Rollout weights and discard threshold (Eq. 3). |
 | `WE_S`, `WS` | `0.5`, `0.5` | Pruning weights (Eq. 4). |
 | `PARALLEL_CALLS`, `MAX_TOKENS` | `4`, `1024` | Throughput settings. Use `PARALLEL_CALLS=1` for rate-limited APIs. |
@@ -238,7 +238,7 @@ PsyParse/
 | *M_s* (Eq. 2) | Symptom match (Jaccard) | Cosine similarity between the profile and therapy-type embeddings |
 | *A* (Eq. 3) | "Keyword / semantic similarity" | MiniLM cosine between the reply and the therapy's techniques and steps |
 | Eq. 4 scoring | Not specified | All 4 candidates scored jointly in two orders and averaged, to cancel position bias |
-| Unknown weights | Not published | Neutral 0.5; τ_resp = 2.5 |
+| Unknown weights | Not published | α, w1, w2 from a grid search on 14 tuning scenarios (0.5 / 0.5 / 0.5 in the best group); other weights 0.5; τ_resp = 2.5 |
 | Judge | Unnamed LLM, rubric in an unpublished appendix | Gemma-4-31B with our rubric |
 | Human evaluation | Certified counselors | Team review of 5 transcript pairs |
 
