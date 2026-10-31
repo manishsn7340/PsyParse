@@ -1,4 +1,4 @@
-> **Outdated (2026-10-24):** describes an older version of the code. Several functions mentioned here no longer exist. See RUN_LOCALLY.md and ../CLAUDE.md for the current setup.
+> **Outdated (2026-10-24):** describes an older version of the code. Several functions mentioned here no longer exist. See RUN_LOCALLY.md for the current setup.
 
 # Important Changes Made for Testing Only
 
@@ -68,7 +68,7 @@ return [self.generate(patient_msg, n=1, temp=_T_SINGLE)[0] for _ in range(n)]
 
 **Why:** On Groq's free tier (8,000 TPM), firing 4 concurrent requests per turn causes an immediate 429 rate limit spike. Sequential calls avoid the parallel burst.
 
-**Note:** Revert to `generate(n=4)` when using a paid API (OpenAI, Anthropic) with high TPM limits.
+**Note:** Revert to `generate(n=4)` when using a paid API (OpenAI etc.) with high TPM limits.
 
 ---
 
